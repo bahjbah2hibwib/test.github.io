@@ -10,10 +10,50 @@
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOVEMcAXPayaHagZg+bXevU5xqrj5iaOLe7GYhtfwsH32LGxswG/AOrmJyNWE5VkUDSpgbDMBIAn8mK9Rz52AnpqrFECca4Dwmsfg" crossorigin="anonymous"> -->
     <style>
       body {
-        background-image: url('https://picsum.photos/1920/1080?blur=5');
-        background-size: cover;
-        background-position: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         background-attachment: fixed;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      
+      /* Smooth transitions */
+      * {
+        transition: all 0.2s ease-in-out;
+      }
+      
+      /* Glass morphism effect */
+      .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Professional shadows */
+      .shadow-professional {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      .shadow-professional-lg {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       }
     </style>
   <script type="importmap">

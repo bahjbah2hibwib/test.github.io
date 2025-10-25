@@ -14,8 +14,8 @@ interface InputGroupProps {
 
 const InputGroup: React.FC<InputGroupProps> = ({ label, icon, name, value, onChange, placeholder, list, onFocus, onBlur }) => {
   return (
-    <div className="space-y-1">
-      <label htmlFor={name} className="flex items-center gap-1.5 text-sm font-medium text-gray-600">
+    <div className="space-y-2">
+      <label htmlFor={name} className="flex items-center gap-2 text-sm font-medium text-blue-200">
         {icon}
         {label}:
       </label>
@@ -30,7 +30,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ label, icon, name, value, onCha
         onFocus={onFocus}
         onBlur={onBlur}
         autoComplete="off"
-        className="w-full px-3 py-2 text-gray-700 bg-white/80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        className="w-full px-4 py-3 glass rounded-xl text-white bg-white/10 border-white/20 placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition-all duration-200"
       />
     </div>
   );

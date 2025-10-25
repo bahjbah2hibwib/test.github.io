@@ -21,8 +21,8 @@ interface SelectGroupProps {
 }
 
 const SelectGroup: React.FC<SelectGroupProps> = ({ label, icon, name, value, onChange, options }) => (
-  <div className="space-y-1">
-    <label htmlFor={name} className="flex items-center gap-1.5 text-sm font-medium text-gray-600">
+  <div className="space-y-2">
+    <label htmlFor={name} className="flex items-center gap-2 text-sm font-medium text-blue-200">
       {icon}
       {label}:
     </label>
@@ -32,13 +32,13 @@ const SelectGroup: React.FC<SelectGroupProps> = ({ label, icon, name, value, onC
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full px-3 py-2 text-gray-700 bg-white/80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 appearance-none"
+        className="w-full px-4 py-3 glass rounded-xl text-white bg-white/10 border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition-all duration-200 appearance-none"
       >
         {options.map(option => (
-          <option key={option} value={option}>{option}</option>
+          <option key={option} value={option} className="bg-gray-800 text-white">{option}</option>
         ))}
       </select>
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
       </div>
     </div>
@@ -95,91 +95,140 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ formData, setFormData, onGene
   };
 
   return (
-    <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-lg p-6 space-y-6 border border-white/20">
-      <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-        <SparklesIcon />
-        Cấu hình tạo câu hỏi
-      </h1>
+    <div className="glass rounded-3xl shadow-professional-lg p-8 space-y-8 hover:shadow-professional-lg transition-all duration-300">
+      {/* Header */}
+      <div className="text-center">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+          <SparklesIcon className="w-8 h-8 text-white" />
+        </div>
+        <h1 className="text-2xl font-bold text-white mb-2">
+          Cấu hình tạo câu hỏi
+        </h1>
+        <p className="text-blue-100 text-sm">
+          Thiết lập các thông số để tạo câu hỏi phù hợp
+        </p>
+      </div>
 
-      <div className="bg-white/80 rounded-xl p-4 space-y-4 shadow-inner">
-        <h2 className="text-md font-semibold text-gray-700 border-b pb-2 flex items-center gap-2">
-          <ListIcon className="w-5 h-5" />
-          Cài đặt cơ bản
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+      {/* Basic Settings */}
+      <div className="glass rounded-2xl p-6 space-y-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+            <ListIcon className="w-5 h-5 text-blue-300" />
+          </div>
+          <h2 className="text-lg font-semibold text-white">
+            Cài đặt cơ bản
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
             <InputGroup label="Môn học" icon={<BookIcon />} name="subject" value={formData.subject} onChange={handleInputChange} list="subjects-list" />
             <datalist id="subjects-list">
               {subjects.map(s => <option key={s} value={s} />)}
             </datalist>
+            <SelectGroup label="Lớp" icon={<ClassIcon />} name="grade" value={formData.grade} onChange={handleSelectChange} options={grades} />
+            <SelectGroup label="Loại câu hỏi" icon={<ListIcon />} name="questionType" value={formData.questionType} onChange={handleSelectChange} options={questionTypes} />
           </div>
-          <SelectGroup label="Lớp" icon={<ClassIcon />} name="grade" value={formData.grade} onChange={handleSelectChange} options={grades} />
-          <SelectGroup label="Loại câu hỏi" icon={<ListIcon />} name="questionType" value={formData.questionType} onChange={handleSelectChange} options={questionTypes} />
-          <InputGroup label="Số lượng" icon={<NumberIcon />} name="quantity" value={formData.quantity} onChange={handleInputChange} />
-          <SelectGroup label="Mức độ" icon={<LevelIcon />} name="difficulty" value={formData.difficulty} onChange={handleSelectChange} options={difficulties} />
-          <div className="relative md:col-span-2">
-            <InputGroup 
-              label="Chủ đề" 
-              icon={<TopicIcon />} 
-              name="topic" 
-              value={topicQuery} 
-              onChange={handleTopicChange} 
-              placeholder="VD: Phép cộng đặt tính" 
-              onFocus={() => setIsTopicFocused(true)}
-              onBlur={() => setTimeout(() => setIsTopicFocused(false), 200)} // Delay to allow click on suggestion
-            />
-            {isTopicFocused && topicSuggestions.length > 0 && (
-              <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg max-h-40 overflow-y-auto">
-                {topicSuggestions.map(suggestion => (
-                  <li key={suggestion} onMouseDown={() => handleSuggestionClick(suggestion)} className="px-3 py-2 cursor-pointer hover:bg-gray-100">
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            )}
+          
+          <div className="space-y-4">
+            <InputGroup label="Số lượng" icon={<NumberIcon />} name="quantity" value={formData.quantity} onChange={handleInputChange} />
+            <SelectGroup label="Mức độ" icon={<LevelIcon />} name="difficulty" value={formData.difficulty} onChange={handleSelectChange} options={difficulties} />
+            <div className="relative">
+              <InputGroup 
+                label="Chủ đề" 
+                icon={<TopicIcon />} 
+                name="topic" 
+                value={topicQuery} 
+                onChange={handleTopicChange} 
+                placeholder="VD: Phép cộng đặt tính" 
+                onFocus={() => setIsTopicFocused(true)}
+                onBlur={() => setTimeout(() => setIsTopicFocused(false), 200)}
+              />
+              {isTopicFocused && topicSuggestions.length > 0 && (
+                <ul className="absolute z-20 w-full glass rounded-xl mt-2 shadow-professional max-h-40 overflow-y-auto">
+                  {topicSuggestions.map(suggestion => (
+                    <li key={suggestion} onMouseDown={() => handleSuggestionClick(suggestion)} className="px-4 py-3 cursor-pointer hover:bg-white/10 text-white border-b border-white/10 last:border-b-0">
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-sky-50/80 rounded-xl p-4 space-y-4 shadow-inner">
-        <h2 className="text-md font-semibold text-gray-700 flex items-center gap-2">
-          <SparklesIcon className="w-5 h-5 text-blue-500" />
-          Tùy chọn nâng cao
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SelectGroup label="Loại bài tập" icon={<ExerciseIcon />} name="exerciseType" value={formData.exerciseType} onChange={handleSelectChange} options={exerciseTypes} />
-            <SelectGroup label="Phong cách" icon={<ToneIcon />} name="tone" value={formData.tone} onChange={handleSelectChange} options={tones} />
+      {/* Advanced Settings */}
+      <div className="glass rounded-2xl p-6 space-y-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+            <SparklesIcon className="w-5 h-5 text-purple-300" />
+          </div>
+          <h2 className="text-lg font-semibold text-white">
+            Tùy chọn nâng cao
+          </h2>
         </div>
-        <div className="pt-2 space-y-2">
-            <label className="flex items-center gap-3 text-gray-600 cursor-pointer">
-              <input type="checkbox" name="includeAnswers" checked={formData.includeAnswers} onChange={handleCheckboxChange} className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-              Kèm theo đáp án và lời giải
-            </label>
-            <label className="flex items-center gap-3 text-gray-600 cursor-pointer">
-              <input type="checkbox" name="useLatex" checked={formData.useLatex} onChange={handleCheckboxChange} className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
-              Sử dụng định dạng Toán nâng cao (đặt tính LaTeX)
-            </label>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <SelectGroup label="Loại bài tập" icon={<ExerciseIcon />} name="exerciseType" value={formData.exerciseType} onChange={handleSelectChange} options={exerciseTypes} />
+          <SelectGroup label="Phong cách" icon={<ToneIcon />} name="tone" value={formData.tone} onChange={handleSelectChange} options={tones} />
+        </div>
+        
+        <div className="space-y-4 pt-4">
+          <div className="flex items-center gap-4 p-4 glass rounded-xl hover:bg-white/5 transition-colors">
+            <input 
+              type="checkbox" 
+              name="includeAnswers" 
+              checked={formData.includeAnswers} 
+              onChange={handleCheckboxChange} 
+              className="w-5 h-5 text-blue-600 bg-white/10 border-white/30 rounded focus:ring-blue-500 focus:ring-2" 
+            />
+            <span className="text-white font-medium">Kèm theo đáp án và lời giải</span>
+          </div>
+          
+          <div className="flex items-center gap-4 p-4 glass rounded-xl hover:bg-white/5 transition-colors">
+            <input 
+              type="checkbox" 
+              name="useLatex" 
+              checked={formData.useLatex} 
+              onChange={handleCheckboxChange} 
+              className="w-5 h-5 text-blue-600 bg-white/10 border-white/30 rounded focus:ring-blue-500 focus:ring-2" 
+            />
+            <span className="text-white font-medium">Sử dụng định dạng Toán nâng cao (LaTeX)</span>
+          </div>
         </div>
       </div>
       
-      <div className="space-y-2">
-        <label htmlFor="additionalRequirements" className="block text-md font-semibold text-gray-700">Yêu cầu bổ sung:</label>
+      {/* Additional Requirements */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-300">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+            </svg>
+          </div>
+          <label htmlFor="additionalRequirements" className="text-lg font-semibold text-white">
+            Yêu cầu bổ sung
+          </label>
+        </div>
         <textarea
           id="additionalRequirements"
           name="additionalRequirements"
           value={formData.additionalRequirements}
           onChange={handleInputChange}
-          rows={3}
+          rows={4}
           placeholder="VD: Tạo bài có đặt phép tính theo cột dọc, sử dụng số lớn hơn 100..."
-          className="w-full px-4 py-2 text-gray-700 bg-white/80 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+          className="w-full px-4 py-3 glass rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/10 transition-all duration-200 resize-none"
         />
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
         <button
           onClick={onGenerate}
           disabled={isLoading}
-          className="w-full sm:w-1/2 flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold bg-gray-400 rounded-lg shadow-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full sm:w-1/2 flex items-center justify-center gap-3 px-6 py-4 text-white font-semibold glass rounded-xl shadow-lg hover:shadow-xl hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <EyeIcon />
           Xem trước
@@ -187,7 +236,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ formData, setFormData, onGene
         <button
           onClick={onGenerate}
           disabled={isLoading}
-          className="w-full sm:w-1/2 flex items-center justify-center gap-2 px-6 py-3 text-white font-bold bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-105 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="w-full sm:w-1/2 flex items-center justify-center gap-3 px-6 py-4 text-white font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl shadow-professional hover:shadow-professional-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {isLoading ? (
             <>

@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   // Vấn đề 1: Thêm 'base' để sửa lỗi 404 trên GitHub Pages
   //  NHỚ THAY 'test.github.io' BẰNG TÊN REPOSITORY CỦA BẠN !!!
-  base: '/test.github.io/',
+  // base: '/test.github.io/',
 
   server: {
     port: 3000,

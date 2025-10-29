@@ -10,7 +10,7 @@ function App() {
     grade: 'Lớp 3',
     questionType: 'Trắc nghiệm',
     quantity: '3 câu',
-    difficulty: 'Thông hiểu',
+    difficulty: 'Nhận biết',
     topic: 'Phép cộng đặt tính',
     includeAnswers: true,
     useLatex: true,

@@ -49,7 +49,7 @@ const SelectGroup: React.FC<SelectGroupProps> = ({ label, icon, name, value, onC
 const subjects = ['Toán', 'Tiếng Việt', 'Khoa học', 'Lịch sử và Địa lý', 'Đạo đức', 'Âm nhạc', 'Mỹ thuật'];
 const grades = ['Lớp 1', 'Lớp 2', 'Lớp 3', 'Lớp 4', 'Lớp 5'];
 const questionTypes = ['Trắc nghiệm', 'Tự luận', 'Điền vào chỗ trống', 'Đúng/Sai', 'Nối cặp'];
-const difficulties = ['Nhận biết', 'Thông hiểu', 'Nâng cao'];
+const difficulties = ['Nhận biết', 'Kết nối', 'Vận dụng'];
 const allTopics = [
   'Phép cộng trong phạm vi 10', 'Phép trừ trong phạm vi 20', 'Đọc, viết số có hai chữ số', 'So sánh các số',
   'Xem giờ đúng', 'Hình vuông, hình tròn', 'Giải bài toán có lời văn', 'Bảng nhân 2', 'Bảng chia 5',
